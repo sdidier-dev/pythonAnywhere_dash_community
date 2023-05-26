@@ -1,10 +1,20 @@
 from dash import Dash, dcc, html
 import dash_bootstrap_components as dbc
 import plotly.express as px
+import git
+from flask import request
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.SPACELAB])
 server = app.server
 
+@server.route('/update_server', methods=['POST'])
+def webhook():
+   if request.method != 'POST':
+      return 'Wrong event type', 400
+   repo = git.Repo('path/to/git_repo')
+   origin = repo.remotes.origin
+   origin.pull()
+   return 'Updated PythonAnywhere successfully', 200
 
 data = {
     'x': ['Cat', 'Dog'] * 9,
