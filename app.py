@@ -43,7 +43,7 @@ def domains_calculator(gap, n_plot):
 
 domains = domains_calculator(gap=0.05, n_plot=3)
 
-fig.update_xaxes(title_text="10 minutes", domain=domains[0], row=1, col=1)
+fig.update_xaxes(title_text="40 minutes", domain=domains[0], row=1, col=1)
 fig.update_xaxes(title_text="30 minutes", domain=domains[1], row=1, col=2)
 fig.update_xaxes(title_text="60 minutes", domain=domains[2], row=1, col=3)
 
