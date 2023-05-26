@@ -7,14 +7,13 @@ from flask import request
 app = Dash(__name__, external_stylesheets=[dbc.themes.SPACELAB])
 server = app.server
 
-@server.route('/update_server', methods=['POST'])
-def webhook():
-   if request.method != 'POST':
-      return 'Wrong event type', 400
-   repo = git.Repo('path/to/git_repo')
-   origin = repo.remotes.origin
-   origin.pull()
-   return 'Updated PythonAnywhere successfully', 200
+@server.route('/git_update', methods=['POST'])
+def git_update():
+    repo = git.Repo('./app')
+    origin = repo.remotes.origin
+    repo.create_head('main', origin.refs.main).set_tracking_branch(origin.refs.main).checkout()
+    origin.pull()
+    return '', 200
 
 data = {
     'x': ['Cat', 'Dog'] * 9,
